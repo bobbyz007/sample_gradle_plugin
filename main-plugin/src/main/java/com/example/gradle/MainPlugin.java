@@ -14,16 +14,15 @@ public class MainPlugin implements Plugin<Project> {
                 objects.domainObjectContainer(ServerEnvironment.class, name -> objects.newInstance(ServerEnvironment.class, name));
         project.getExtensions().add("environments", serverEnvironmentContainer);
 
+        // 此处all方法指定的action只是注册，会延迟到解析完构建脚本再执行
         serverEnvironmentContainer.all(serverEnvironment -> {
             String env = serverEnvironment.getName();
-            System.out.println(env);
-            System.out.println(serverEnvironment.getUrl());
             String capitalizedServerEnv = env.substring(0, 1).toUpperCase() + env.substring(1);
             String taskName = "deployTo" + capitalizedServerEnv;
             // project.getTasks().register(taskName, Deploy.class, task -> task.getUrl().set(serverEnvironment.getUrl()));
             project.getTasks().register(taskName, task -> {
                 task.doLast(t -> {
-                    System.out.println(serverEnvironment.getName() + ": " + serverEnvironment.getUrl());
+                    System.out.println(serverEnvironment.getName() + ": " + serverEnvironment.getUrl().get());
                 });
             });
         });
