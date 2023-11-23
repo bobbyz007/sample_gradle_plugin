@@ -3,6 +3,7 @@ package com.example.gradle;
 import org.gradle.api.NamedDomainObjectContainer;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
+import org.gradle.api.artifacts.Configuration;
 import org.gradle.api.model.ObjectFactory;
 
 public class MainPlugin implements Plugin<Project> {
@@ -26,5 +27,17 @@ public class MainPlugin implements Plugin<Project> {
                 });
             });
         });
+
+        // 提供一个配置：改写插件提供的默认依赖
+        Configuration dataFiles = project.getConfigurations().create("dataFiles", c -> {
+            c.setVisible(false);
+            c.setCanBeConsumed(false);
+            c.setCanBeResolved(true);
+            c.setDescription("The data artifacts to be processed for this plugin.");
+            c.defaultDependencies(d -> d.add(project.getDependencies().create("com.taobao.arthas:arthas-common:3.7.0")));
+        });
+
+        project.getTasks().withType(DataProcessing.class).configureEach(
+                dataProcessing -> dataProcessing.getDataFiles().from(dataFiles));
     }
 }

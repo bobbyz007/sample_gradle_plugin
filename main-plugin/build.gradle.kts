@@ -23,6 +23,7 @@ repositories {
 
 gradlePlugin {
     plugins {
+        // 插件id与实现类的对应关系会写入 jar包中 META-INF/gradle-plugins目录下的文件中
         create("mainPlugin") {
             id = "com.example.gradle.main-plugin"
             implementationClass = "com.example.gradle.MainPlugin"
