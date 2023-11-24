@@ -28,6 +28,10 @@ gradlePlugin {
             id = "com.example.gradle.main-plugin"
             implementationClass = "com.example.gradle.MainPlugin"
         }
+        create("subPlugin") {
+            id = "com.example.gradle.sub-plugin"
+            implementationClass = "com.example.gradle.collection.SubPlugin"
+        }
     }
 }
 
