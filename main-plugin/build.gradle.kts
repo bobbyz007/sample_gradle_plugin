@@ -10,10 +10,13 @@ plugins {
  */
 group = "com.example.gradle"
 version = "1.0.0"
+// 推荐使用toolchain，而不是sourceCompatibility和targetCompatibility
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
 }
+
 repositories {
     maven("https://maven.aliyun.com/repository/public/")
     maven("https://mirrors.huaweicloud.com/repository/maven/")
