@@ -1,14 +1,14 @@
-package com.example.gradle.collection;
+package com.example.gradle;
 
-import com.example.gradle.DataProcessing;
-import com.example.gradle.ServerEnvironment;
-import org.gradle.api.NamedDomainObjectContainer;
+import com.example.gradle.collection.DownloadExtension;
+import com.example.gradle.service.BuildServiceDepTask;
+import com.example.gradle.service.BuildServiceTask;
+import com.example.gradle.service.WebServer;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;
-import org.gradle.api.artifacts.Configuration;
 import org.gradle.api.model.ObjectFactory;
 import org.gradle.api.provider.Property;
-import org.gradle.wrapper.Download;
+import org.gradle.plugin.devel.tasks.internal.ValidateAction;
 
 import java.net.URI;
 
@@ -37,5 +37,17 @@ public class SubPlugin implements Plugin<Project> {
                 });
             });
         });
+
+        // register build service
+        project.getGradle().getSharedServices().registerIfAbsent("web", WebServer.class, spec -> {
+            spec.getParameters().getPort().set(5005);
+        });
+        // 在task的实现中使用build service，多个task共用同一个build server，必须保证线程安全
+        project.getTasks().register("downloadBuildService", BuildServiceTask.class, task -> {
+            task.getOutputFile().set(project.getLayout().getBuildDirectory().file("result.zip"));
+            task.setDependsOn(project.getTasks().withType(BuildServiceDepTask.class));
+        });
+        project.getTasks().register("downloadBuildServiceDep", BuildServiceDepTask.class);
+
     }
 }

@@ -1,5 +1,7 @@
 package com.example.gradle;
 
+import com.example.gradle.collection.ServerEnvironment;
+import com.example.gradle.dependency.DataProcessing;
 import org.gradle.api.NamedDomainObjectContainer;
 import org.gradle.api.Plugin;
 import org.gradle.api.Project;

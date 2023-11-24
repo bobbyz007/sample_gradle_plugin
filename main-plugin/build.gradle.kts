@@ -30,7 +30,7 @@ gradlePlugin {
         }
         create("subPlugin") {
             id = "com.example.gradle.sub-plugin"
-            implementationClass = "com.example.gradle.collection.SubPlugin"
+            implementationClass = "com.example.gradle.SubPlugin"
         }
     }
 }

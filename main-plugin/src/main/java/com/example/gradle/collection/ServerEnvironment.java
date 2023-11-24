@@ -1,4 +1,4 @@
-package com.example.gradle;
+package com.example.gradle.collection;
 
 import org.gradle.api.provider.Property;
 

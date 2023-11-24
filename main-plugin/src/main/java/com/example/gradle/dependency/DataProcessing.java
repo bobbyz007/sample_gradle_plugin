@@ -1,4 +1,4 @@
-package com.example.gradle;
+package com.example.gradle.dependency;
 
 import org.gradle.api.DefaultTask;
 import org.gradle.api.file.ConfigurableFileCollection;
