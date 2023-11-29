@@ -1,7 +1,13 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.jetbrains.kotlin.gradle.dsl.KotlinVersion
+
 plugins {
     java
     `java-gradle-plugin`
     id("maven-publish")
+    // 会间接引人java-gradle-plugin,org.jetbrains.kotlin.jvm等插件
+    // 如果需要使用kotlin语言编写插件，推荐引入此插件。
+    `kotlin-dsl`
 }
 
 /**
@@ -15,6 +21,10 @@ java {
     toolchain {
         languageVersion = JavaLanguageVersion.of(17)
     }
+}
+kotlin {
+    compilerOptions.jvmTarget = JvmTarget.JVM_17
+    compilerOptions.languageVersion = KotlinVersion.DEFAULT
 }
 
 repositories {
@@ -34,6 +44,10 @@ gradlePlugin {
         create("subPlugin") {
             id = "com.example.gradle.sub-plugin"
             implementationClass = "com.example.gradle.SubPlugin"
+        }
+        create("codeLinePlugin") {
+            id = "com.example.gradle.codeline-plugin"
+            implementationClass = "com.example.gradle.CodeLinesCounterPlugin"
         }
     }
 }

@@ -11,6 +11,12 @@ dependencyResolutionManagement {
         }*/
     }
 }
+pluginManagement {
+    repositories {
+        maven("https://maven.aliyun.com/repository/gradle-plugin")
+        gradlePluginPortal() // if pluginManagement.repositories looks like this, it can be omitted as this is the default
+    }
+}
 
 rootProject.name = "sample_gradle_plugin"
 include("main-plugin")
