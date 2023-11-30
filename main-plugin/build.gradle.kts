@@ -19,11 +19,11 @@ version = "1.0.0"
 // 推荐使用toolchain，而不是sourceCompatibility和targetCompatibility
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion = JavaLanguageVersion.of(21)
     }
 }
 kotlin {
-    compilerOptions.jvmTarget = JvmTarget.JVM_17
+    compilerOptions.jvmTarget = JvmTarget.JVM_21
     compilerOptions.languageVersion = KotlinVersion.DEFAULT
 }
 
